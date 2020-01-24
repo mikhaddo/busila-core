@@ -1,0 +1,43 @@
+TRAVAILLONS ENSEMBLE À LA RÉALISATION DE VOTRE PROJET
+Ancien militaire reconverti dans le développement web, je suis spécialisé dans le développement de sites personnalisés et adaptés aux besoins des indépendants, start-up, TPE et PME, je vous apporte de la visibilité sur internet et une intégration au monde du Web en toute sérénité !
+
+DÉVELOPPEMENT
+Grâce à la visibilité offerte par votre site web, développez votre chiffre d'affaire et votre clientèle en toute simplicité.
+
+SÉCURITÉ ET SÉRÉNITÉ
+Tous les projets réalisés sont sécurisés en https et protégés contre la majorité des attaques ou des piratages, communiquez l'esprit tranquille.
+
+SUIVI SUR LE LONG TERME
+Economisez votre temps en profitant d'un suivi personnalisé de votre site : maintenance, entretien et mises à jours, je vous accompagne !
+
+---
+
+RÉALISATION D'UN DEVIS
+Ensemble, nous réalisons votre devis personnalisé et adapté à votre situation et à vos besoins
+
+CONCEPTION
+Le site est ensuite minutieusement construit ligne par ligne pour qu'il vous ressemble vraiment 
+
+LIVRAISON
+Le site vous est livré et présenté en détail pour que vous puissiez comprendre son fonctionnement
+
+FORMATION
+Directement dans vos locaux, je vous forme ainsi que vos collaborateurs à la prise en main de votre site et à l'ajout de contenu
+
+RESPONSIV DESIGN
+Le contenu créé spécialement pour votre site est adapté à tous les terminaux, vos visiteurs peuvent naviguer avec leur appareil préféré.
+
+
+---
+
+PRISE DE CONTACT
+Remplissez le formulaire de contact, je vous recontacte ensuite sous 24h.
+On se rencontre dans votre établissement ou dans le lieu de votre choix
+
+
+TODO:
+busilaweb{
+	FA icones;
+	javascript-formulaire-onclick;
+	javascript-img
+}
