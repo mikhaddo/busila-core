@@ -33,11 +33,3 @@ Le contenu cr�� sp�cialement pour votre site est adapt� � tous les ter
 PRISE DE CONTACT
 Remplissez le formulaire de contact, je vous recontacte ensuite sous 24h.
 On se rencontre dans votre �tablissement ou dans le lieu de votre choix
-
-
-TODO:
-busilaweb{
-	FA icones;
-	javascript-formulaire-onclick :: vérifier en front mail;
-	javascript-img
-}

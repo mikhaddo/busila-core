@@ -5,9 +5,7 @@ let childrenOfCaptcha = document.querySelector('#form-captcha-eco-txt').parentEl
 /**
  * functions color on the fomulaire
  */
-function formEventClick(element){
-      element.style.border = 'solid blue 4px';
-}
+function formEventClick(element){ element.style.border = 'solid blue 4px'; }
 function formEventFocusout(element){
    if(element.value.length >0){
       element.style.border = 'solid green 4px';
@@ -53,6 +51,8 @@ document.querySelector('#submit').addEventListener("click", function(e){
       e.preventDefault();
       randCapNumber();
    }
+   // else { document.getElementById("form-contact").submit; }
+
    // with var childrenOfCaptcha; two (isset(<p class="errorCaptchaTxt">))? remove the last one !
    if( childrenOfCaptcha.children[1].className == 'errorCaptchaTxt' ){
       childrenOfCaptcha.removeChild(childrenOfCaptcha.children[1]);

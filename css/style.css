@@ -46,7 +46,7 @@ nav>ul{
     padding:5px 0;
     border-top: #00ffe5 solid;
     border-bottom: #00ffe5 solid;
-    transition: all 5s;
+    transition: all 1s;
 }
 nav>ul>li{
     padding:1.5rem;
@@ -321,19 +321,14 @@ footer .egg{
         margin-top:2rem;
     }
     nav>ul{
-        display:none;
         flex-direction:column-reverse;
         align-items: stretch;
-        /* margin-top:-10rem; */
-        /* transform: translateY(50px); */
-        opacity: 0;
+        visibility:hidden;
+        opacity: 0.1;
         height: 0;
         margin-top: -2rem;
     }
-    /* nav>ul:active{
-        margin-top:5rem;
-    } */
-    nav>ul::after{
+    /* nav>ul::after{
         margin-left:-1rem;
         content: '>>>';
         color:pink;
@@ -341,7 +336,7 @@ footer .egg{
     nav>ul:hover::after{
         opacity:1;
         margin-left:1rem;
-    }
+    } */
     nav>ul .nav-li-img:hover{
         background-color:#00ffe5;
         /* transform: initial; */

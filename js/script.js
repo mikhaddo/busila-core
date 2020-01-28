@@ -1,5 +1,7 @@
 // menu UL is open or not ? default = close;
 var navUlOpen = false;
+let SelectorNavbarToMove = 'nav>ul';
+let SelectorNavbarButton = '.nav-ham';
 
 /**
  * if we are in small mode ;
@@ -7,50 +9,71 @@ var navUlOpen = false;
  * and if the var 'navUlOpen' == false
  * we can open it.
 */
-function openNavbar(selector){
-    console.log(selector + ' :: open standard');
-    let selectorQuery = 'document.querySelector(\'' + selector + '\')';
-    console.log(selectorQuery);
-    selectorQuery.style.display = 'flex';
-    selectorQuery.style.border = 'none';
-    selectorQuery.style.borderTop = '#00ffe5 solid';
-    selectorQuery.style.borderBottom = '#00ffe5 solid';
-    selectorQuery.style.marginTop = 'initial';
-    selectorQuery.style.transform = "rotate(0deg)";
-    navUlOpen = true;
-}
-function openNavbarWithStyle(){
-    console.log('with style');
-    document.querySelector('nav>ul').style.display = 'flex';
-    document.querySelector('nav>ul').style.transform = 'rotate(7deg)';
-    // document.querySelector('nav>ul').style.border = 'blue solid medium';
-    // document.querySelector('nav>ul').style.marginTop = '5rem';
-    document.querySelector('nav>ul').style.marginTop = '10rem';
-    document.querySelector('nav>ul').style.opacity = '1';
-    document.querySelector('nav>ul').style.height = '100%';
-    navUlOpen = true;
-}
-function closeNavbar(){
-    console.log('nav>ul :: close')
-    document.querySelector('nav>ul').style.display = 'flex';
-    document.querySelector('nav>ul').style.transform = "rotate(0deg)"
-    document.querySelector('nav>ul').style.marginTop = '-2rem';
-    document.querySelector('nav>ul').style.opacity = '0';
-    document.querySelector('nav>ul').style.position = 'absolute';
-    document.querySelector('nav>ul').style.left = 0;
-    document.querySelector('nav>ul').style.bottom = 0;
+function openNavbarWithStyle(selectorOpenNavbarWithStyle){
 
-    // document.querySelector('nav>ul').style.marginTop = 'initial';
+    let selectorQuery = document.querySelector(selectorOpenNavbarWithStyle);
+    // verify if it's not the first time (because has no attributes), and reset the precedent style="".
+    if(selectorQuery.attributes[0] !== undefined){
+        selectorQuery.attributes[0].value = '';
+    }
+
+    // show navbar
+    selectorQuery.style.visibility = 'visible';
+    selectorQuery.style.opacity = 1;
+    selectorQuery.style.height = '100%';
+    selectorQuery.style.marginTop = '3rem';
+
+    // effects
+    selectorQuery.style.transform = 'rotate(7deg)';
+    selectorQuery.style.borderLeft = 'blue solid medium';
+
+    // navbar open
+    navUlOpen = true;
+    console.log('openNavbarWithStyle');
+}
+function navbarOrigin(selectorNavbarOrigin){
+    // at the first time, the selector as no style="", if defined : rm value of style="".
+    if(document.querySelector(selectorNavbarOrigin).attributes[0] !== undefined){
+        document.querySelector(selectorNavbarOrigin).attributes[0].value = '';
+    }
+    navUlOpen = true;
+    console.log('navbarOrigin');
+}
+function closeNavbar(selectorCloseNavbar){
+    let selectorQuery = document.querySelector(selectorCloseNavbar);
+    // at the first time, the selector as no style="", if defined : rm value of style="".
+    // and apply stylich hidding (now in the .CSS part responsive 'nav>ul')
+    if(selectorQuery.attributes[0] !== undefined){
+        selectorQuery.attributes[0].value = '';
+    }
+
+    /**
+     * finaly after all this time, we finally find something interessing !
+     * document.querySelectorAll(selectorCloseNavbar + ' li').forEach(function(element){
+     *      element.style.visibility = 'hidden';
+     * });
+     */
+
     navUlOpen = false;
+    console.log('closeNavbar');
 }
 
 /**
+ * on click button : verify state of navUlOpen and open or close navbar.
  * listen dynamic for width of change : big screen
  * in case of re-switch mini : close navbar && navUlOpen = false !
  */
-document.querySelector('.nav-ham').addEventListener("click", function(e){
-    if(navUlOpen == false){ openNavbarWithStyle(); } else { closeNavbar(); }
+document.querySelector(SelectorNavbarButton).addEventListener("click", function(){
+    if(navUlOpen == false){
+        openNavbarWithStyle(SelectorNavbarToMove);
+    } else {
+        closeNavbar(SelectorNavbarToMove);
+    }
 });
 window.matchMedia("(min-width: 650px)").addListener(function(changed) {
-    if(changed.matches){ openNavbar('nav>ul'); } else { closeNavbar(); }
+    if(changed.matches){
+        navbarOrigin(SelectorNavbarToMove);
+    } else {
+        closeNavbar(SelectorNavbarToMove);
+    }
 });

@@ -12,7 +12,7 @@
 <div class="wrapper">
 
     <header class="page-header">
-        <h1 id="page-up"><a href="index.html">cyprien busila</a></h1>
+        <h1 id="page-up"><a href="index.php">cyprien busila</a></h1>
         <p><i class="fas fa-home"></i>Développeur web indépendant, à l’écoute de vos projets</p>
         <nav>
             <div class="nav-ham">☰</div>

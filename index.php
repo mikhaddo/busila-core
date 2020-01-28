@@ -3,20 +3,20 @@
      * form : call to values
      * verification
      * send mail
+     * isset($_POST['check-robot']) && # obsolete
      */
     if(
-        isset($_POST['name']) &&
+         isset($_POST['name']) &&
         isset($_POST['email']) &&
         isset($_POST['subject']) &&
         isset($_POST['hidden-droid']) &&
-        // isset($_POST['check-robot']) && # obsolete
         isset($_POST['textarea']) &&
         isset($_POST['form-captcha-eco'])
     ){
         /**
          * after call for all elements, verification of the content
          */
-
+        echo 'alo';
         // verification name
         if(empty($_POST['name'])){
             $errors[] = 'Veillez rentrer un nom !';
@@ -235,10 +235,10 @@
                     <label for="subject">Objet :</label>
                     <select id="subject" name="subject">
                         <optgroup label="type de demande">
-                        <option value="0" <?= (isset($_POST['subject']))? (($_POST['subject'] == 0)? 'selected' : NULL ) : NULL; ?>>Demande de projet web</option>
+                        <option value="0" <?= (isset($_POST['subject']))? (($_POST['subject'] == 0)? 'selected' : NULL ) : 'selected'; ?>>Demande de projet web</option>
                         <option value="1" <?= (isset($_POST['subject']))? (($_POST['subject'] == 1)? 'selected' : NULL ) : NULL; ?>>Prise de contact</option>
                         <option value="2" <?= (isset($_POST['subject']))? (($_POST['subject'] == 2)? 'selected' : NULL ) : NULL; ?>>Question(s)</option>
-                        <option value="3" <?= (isset($_POST['subject']))? (($_POST['subject'] == 3)? 'selected' : NULL ) : 'selected'; ?> disabled>Choisis !</option>
+                        <option value="3" <?= (isset($_POST['subject']))? (($_POST['subject'] == 3)? 'selected' : NULL ) : NULL; ?> disabled>Choisis !</option>
                         </optgroup>
                     </select>
                 </div>
@@ -247,11 +247,11 @@
                     <label for="check-robot-no">non !
                         <input type="radio" name="check-robot" id="check-robot-no" value="check-robot-no" checked>
                     </label>
-                    <input type="hidden" name="hidden-droid" value="">
                     <label for="check-robot-yes">ui... (n'enverra pas le mail)
                         <input type="radio" name="check-robot" id="check-robot-yes" value="check-robot-yes">
                     </label>
                 </div> -->
+                <input type="hidden" name="hidden-droid" value="">
                 <hr>
                 <div class="form-row">
                     <label for="textarea">Votre message :</label>
@@ -273,7 +273,6 @@
     </section>
 
 <script src="js/form.js"></script>
-
 <?php require 'part/footer.php' ?>
 <?php
     /**

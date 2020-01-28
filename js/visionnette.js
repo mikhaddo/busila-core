@@ -16,17 +16,17 @@ function displayImg(element,divSmallImg){
     // create div & stylize for overlay : (.overlay-pink)
     document.body.prepend(document.createElement('div'));
     document.body.firstChild.className = 'overlay-pink';
-    let overlayPink = document.querySelector('.overlay-pink');
-    overlayPink.style.position='fixed';
-    overlayPink.style.top =  0;
-    overlayPink.style.bottom = 0;
-    overlayPink.style.left = 0;
-    overlayPink.style.right = 0;
-    overlayPink.style.backgroundColor = 'rgb(230, 175, 250,0.7)';
+    let overlayLarge = document.querySelector('.overlay-pink');
+    overlayLarge.style.position='fixed';
+    overlayLarge.style.top =  0;
+    overlayLarge.style.bottom = 0;
+    overlayLarge.style.left = 0;
+    overlayLarge.style.right = 0;
+    overlayLarge.style.backgroundColor = 'rgb(230, 175, 250,0.7)';
 
     // create img element && stylize in (.overlay-pink to imgBigger)
-    document.querySelector('.overlay-pink').prepend(document.createElement('img'));
-    document.querySelector('.overlay-pink').firstChild.className = 'img-bigger';
+    overlayLarge.prepend(document.createElement('img'));
+    overlayLarge.firstChild.className = 'img-bigger';
     let imgBigger = document.querySelector('.img-bigger');
     imgBigger.style.position='absolute';
     imgBigger.style.width = '80%';
@@ -43,8 +43,8 @@ function displayImg(element,divSmallImg){
     }
 
     // click on dis thing for rm overlay and everything on it ; and get to the choppa.
-    overlayPink.addEventListener('click', function(){
-        overlayPink.parentElement.removeChild(overlayPink);
+    overlayLarge.addEventListener('click', function(){
+        overlayLarge.parentElement.removeChild(overlayLarge);
     });
 
 };
@@ -54,16 +54,14 @@ function displayImg(element,divSmallImg){
  * if overlay is not open, then open-it : NOW !
  * and stalk mouse hove | un-hove over img for zooming.
  */
-document.querySelectorAll(articleImg).forEach(function(e){
-    e.addEventListener('mouseover', function(){
+document.querySelectorAll(articleImg).forEach(function(element){
+    element.addEventListener('mouseover', function(){
         document.querySelector(articleImg + ':hover').style.transform = 'scale(2)';
     });
-    e.addEventListener('mouseout', function(){
-        document.querySelectorAll(articleImg).forEach(function(e){
-            e.style.transform = 'initial';
-        });
+    element.addEventListener('mouseout', function(){
+            this.style.transform = 'initial';
     });
-    e.addEventListener('click', function(){
+    element.addEventListener('click', function(){
         // prevent multiplication of overlay(s), we are saved, everything will not collapsing in pink.
         if(!document.querySelector('.overlay-pink')){
             displayImg(this, articleImg);
