@@ -46,7 +46,7 @@ nav>ul{
     padding:5px 0;
     border-top: #00ffe5 solid;
     border-bottom: #00ffe5 solid;
-    transition: all 1s;
+    transition: all 5s;
 }
 nav>ul>li{
     padding:1.5rem;
@@ -163,7 +163,7 @@ article>p{
     margin: 3%;
 }
 article .article-row-left{
-    width:70%;
+    width:60%;
     padding:2%;
 }
 article .article-row-left ul>li{
@@ -172,19 +172,20 @@ article .article-row-left ul>li{
     padding:0 2%;
 }
 article .article-row-right{
-    width:22%;
+    width:32%;
     padding: 2%;
 }
 article .article-row-right img{
     width:200px;
-    height:135px;
+    height:100px;
     border: #00ffe5 1px solid;
     cursor:zoom-in;
     transition:0.2s;
 }
-article .article-row-right img:hover{
+/* in javaScript : 'js/visionnette.js' */
+/* article .article-row-right img:hover{
     transform: scale(2);
-}
+} */
 
 /** formulaire **/
 #form-contact>fieldset{
@@ -317,12 +318,29 @@ footer .egg{
         color:#00ffe5;
         font-size: 2rem;
         cursor:pointer;
+        margin-top:2rem;
     }
     nav>ul{
+        display:none;
         flex-direction:column-reverse;
         align-items: stretch;
-        /* margin-top:-2rem; */
-        transform: translateY(50px);
+        /* margin-top:-10rem; */
+        /* transform: translateY(50px); */
+        opacity: 0;
+        height: 0;
+        margin-top: -2rem;
+    }
+    /* nav>ul:active{
+        margin-top:5rem;
+    } */
+    nav>ul::after{
+        margin-left:-1rem;
+        content: '>>>';
+        color:pink;
+    }
+    nav>ul:hover::after{
+        opacity:1;
+        margin-left:1rem;
     }
     nav>ul .nav-li-img:hover{
         background-color:#00ffe5;

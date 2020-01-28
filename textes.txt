@@ -1,43 +1,43 @@
-TRAVAILLONS ENSEMBLE À LA RÉALISATION DE VOTRE PROJET
-Ancien militaire reconverti dans le développement web, je suis spécialisé dans le développement de sites personnalisés et adaptés aux besoins des indépendants, start-up, TPE et PME, je vous apporte de la visibilité sur internet et une intégration au monde du Web en toute sérénité !
+TRAVAILLONS ENSEMBLE ï¿½ LA Rï¿½ALISATION DE VOTRE PROJET
+Ancien militaire reconverti dans le dï¿½veloppement web, je suis spï¿½cialisï¿½ dans le dï¿½veloppement de sites personnalisï¿½s et adaptï¿½s aux besoins des indï¿½pendants, start-up, TPE et PME, je vous apporte de la visibilitï¿½ sur internet et une intï¿½gration au monde du Web en toute sï¿½rï¿½nitï¿½ !
 
-DÉVELOPPEMENT
-Grâce à la visibilité offerte par votre site web, développez votre chiffre d'affaire et votre clientèle en toute simplicité.
+Dï¿½VELOPPEMENT
+Grï¿½ce ï¿½ la visibilitï¿½ offerte par votre site web, dï¿½veloppez votre chiffre d'affaire et votre clientï¿½le en toute simplicitï¿½.
 
-SÉCURITÉ ET SÉRÉNITÉ
-Tous les projets réalisés sont sécurisés en https et protégés contre la majorité des attaques ou des piratages, communiquez l'esprit tranquille.
+Sï¿½CURITï¿½ ET Sï¿½Rï¿½NITï¿½
+Tous les projets rï¿½alisï¿½s sont sï¿½curisï¿½s en https et protï¿½gï¿½s contre la majoritï¿½ des attaques ou des piratages, communiquez l'esprit tranquille.
 
 SUIVI SUR LE LONG TERME
-Economisez votre temps en profitant d'un suivi personnalisé de votre site : maintenance, entretien et mises à jours, je vous accompagne !
+Economisez votre temps en profitant d'un suivi personnalisï¿½ de votre site : maintenance, entretien et mises ï¿½ jours, je vous accompagne !
 
 ---
 
-RÉALISATION D'UN DEVIS
-Ensemble, nous réalisons votre devis personnalisé et adapté à votre situation et à vos besoins
+Rï¿½ALISATION D'UN DEVIS
+Ensemble, nous rï¿½alisons votre devis personnalisï¿½ et adaptï¿½ ï¿½ votre situation et ï¿½ vos besoins
 
 CONCEPTION
 Le site est ensuite minutieusement construit ligne par ligne pour qu'il vous ressemble vraiment 
 
 LIVRAISON
-Le site vous est livré et présenté en détail pour que vous puissiez comprendre son fonctionnement
+Le site vous est livrï¿½ et prï¿½sentï¿½ en dï¿½tail pour que vous puissiez comprendre son fonctionnement
 
 FORMATION
-Directement dans vos locaux, je vous forme ainsi que vos collaborateurs à la prise en main de votre site et à l'ajout de contenu
+Directement dans vos locaux, je vous forme ainsi que vos collaborateurs ï¿½ la prise en main de votre site et ï¿½ l'ajout de contenu
 
 RESPONSIV DESIGN
-Le contenu créé spécialement pour votre site est adapté à tous les terminaux, vos visiteurs peuvent naviguer avec leur appareil préféré.
+Le contenu crï¿½ï¿½ spï¿½cialement pour votre site est adaptï¿½ ï¿½ tous les terminaux, vos visiteurs peuvent naviguer avec leur appareil prï¿½fï¿½rï¿½.
 
 
 ---
 
 PRISE DE CONTACT
 Remplissez le formulaire de contact, je vous recontacte ensuite sous 24h.
-On se rencontre dans votre établissement ou dans le lieu de votre choix
+On se rencontre dans votre ï¿½tablissement ou dans le lieu de votre choix
 
 
 TODO:
 busilaweb{
 	FA icones;
-	javascript-formulaire-onclick;
+	javascript-formulaire-onclick :: vÃ©rifier en front mail;
 	javascript-img
 }

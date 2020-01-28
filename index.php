@@ -1,7 +1,4 @@
 <?php
-    // generate captcha, flûte, it's the kind of thing we have to generate in javaScript
-    $number_captcha_rnd = rand(0,9);
-
     /**
      * form : call to values
      * verification
@@ -12,7 +9,7 @@
         isset($_POST['email']) &&
         isset($_POST['subject']) &&
         isset($_POST['hidden-droid']) &&
-        isset($_POST['check-robot']) &&
+        // isset($_POST['check-robot']) && # obsolete
         isset($_POST['textarea']) &&
         isset($_POST['form-captcha-eco'])
     ){
@@ -23,7 +20,7 @@
         // verification name
         if(empty($_POST['name'])){
             $errors[] = 'Veillez rentrer un nom !';
-        } else if(!preg_match('/^[a-zA-Z\-\s\']{3,100}$/', $_POST['name'])){
+        } else if(!preg_match('/^[a-zA-Z\-\s\'áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ]{3,100}$/', $_POST['name'])){
             $errors[] = 'nom incorrect : trop long | trop court ; minucules, Majuscules, -, , \' ';
         }
 
@@ -65,10 +62,10 @@
             $errors[] = 'vous êtes un robot il me semble';
         }
 
-        // verification check-robot
-        if($_POST['check-robot'] != 'check-robot-no'){
-            $errors[] = 'on coche la case robot comme cela ?';
-        }
+        // verification check-robot, not use
+        // if($_POST['check-robot'] != 'check-robot-no'){
+        //     $errors[] = 'on coche la case robot comme cela ?';
+        // }
 
         // verification textarea (false positif ?)
         // or write function with regex for resend purified textarea to the user
@@ -87,7 +84,7 @@
             $errors[] = 'votre captcha n\'est pas un numéro !';
         } /* else if( $_POST['form-captcha-eco'] != (10+$number_captcha_rnd)){
             $errors[] = 'vous vous êtes trompés dans l\'addition.';
-        } */ // not workin' for now, must do dat in javaScript
+        } */
 
         /**
          * and if nothing goes to errors[] :
@@ -245,7 +242,7 @@
                         </optgroup>
                     </select>
                 </div>
-                <div class="form-row">
+                <!-- <div class="form-row">
                     je suis un robot :
                     <label for="check-robot-no">non !
                         <input type="radio" name="check-robot" id="check-robot-no" value="check-robot-no" checked>
@@ -254,7 +251,7 @@
                     <label for="check-robot-yes">ui... (n'enverra pas le mail)
                         <input type="radio" name="check-robot" id="check-robot-yes" value="check-robot-yes">
                     </label>
-                </div>
+                </div> -->
                 <hr>
                 <div class="form-row">
                     <label for="textarea">Votre message :</label>
@@ -264,8 +261,9 @@
                 </div>
                 <div class="form-row">
                     <div class="form-row">
-                        Résoudre 10 + <?= isset($number_captcha_rnd)? $number_captcha_rnd : '<p style="color:red;">(erreur, chiffre invalide, recharge la page stp, ou demande de l\'aide au webmestre.)</p>'; ?>
-                        = <input type="number" id="form-captcha-eco" name="form-captcha-eco" value="" placeholder="0" data-first_digit="rnd(4)" data-second_digit="rnd(10)">
+                        <p>Résoudre : </p>
+                        <p id="form-captcha-eco-txt"></p>
+                        <input type="number" id="form-captcha-eco" name="form-captcha-eco" value="" placeholder="0">
                     </div>
                     <button type="reset" id="reset" value="reset">reset</button>
                     <button type="submit" id="submit" value="submit">envoie</button>
@@ -273,6 +271,8 @@
             </fieldset>
         </form>
     </section>
+
+<script src="js/form.js"></script>
 
 <?php require 'part/footer.php' ?>
 <?php
