@@ -2,7 +2,7 @@
 
     <div class="cursor-jump-up"><a href="#page-up">^</a></div>
     <footer class="page-footer">
-        <p><a href="418" class="egg" rel="header('HTTP/1.1 418 I'm a teapot')">™</a></p>
+        <p><a href="418.php" class="egg">™</a></p>
     </footer>
 
 </div>

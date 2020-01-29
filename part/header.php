@@ -20,7 +20,7 @@
                 <li class="nav-li-img"><a href="index.php"><img src="img/LOGO_BUSE_ROND.png" alt="Busila Core" title="Busila Core"></a></li>
                 <li><a href="index.php#form-contact">Contact</a></li>
                 <li><a href="portfolio.php">Portfolio</a></li>
-                <li><a href="cgu.php">C.G.U</a></li>
+                <li><a href="cgv.php">C.G.V</a></li>
                 <li class="nav-li-img"><a href="https://www.facebook.com/BusilaCore/" target="_blank"><img src="img/thumbs/facebook-logo.png" alt="Facebook" title="Facebook"></a></li>
             </ul>
         </nav>

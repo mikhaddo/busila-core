@@ -6,7 +6,7 @@
      * isset($_POST['check-robot']) && # obsolete
      */
     if(
-         isset($_POST['name']) &&
+        isset($_POST['name']) &&
         isset($_POST['email']) &&
         isset($_POST['subject']) &&
         isset($_POST['hidden-droid']) &&
@@ -16,17 +16,16 @@
         /**
          * after call for all elements, verification of the content
          */
-        echo 'alo';
         // verification name
         if(empty($_POST['name'])){
             $errors[] = 'Veillez rentrer un nom !';
         } else if(!preg_match('/^[a-zA-Z\-\s\'áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ]{3,100}$/', $_POST['name'])){
-            $errors[] = 'nom incorrect : trop long | trop court ; minucules, Majuscules, -, , \' ';
+            $errors[] = 'nom incorrect : trop long ou trop court ; ou alors caractères : minucules, Majuscules, -, , \' ';
         }
 
         // verification email
         if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-            $errors[] = 'email pas bon';
+            $errors[] = 'email est pas bon';
         }
 
         // verification subject && assoc $subject_result
@@ -96,8 +95,11 @@
              * sending mail...
              */
             // what mail server ? postfix ? 1&1 ?
-            $to = 'mik@localhost'; # localhost
+            // $to = 'mik@localhost'; # localhost
             // $to = 'celestin@gmail.com'; # be carrefull when you send mails, spamming GMAIL !
+
+            // prod mode
+            $to = "thierry.micots@gmail.com,cyprien.busila@busila-core.com";
 
             //$subject = $_POST['subject'];
             $subject = $subject_result;
@@ -224,23 +226,35 @@
                     //echo isset($_POST['form-captcha-eco'])? $_POST['form-captcha-eco'] . ' != ' . (10+$number_captcha_rnd) : NULL;
                  ?>
                 <div class="form-row">
-                    <label for="name">Nom :</label>
-                    <input type="text" id="name" name="name" placeholder="celestin" value="<?= !isset($_POST['name']) ? null : htmlspecialchars($_POST['name']); ?>">
+                    <div class="form-row label">
+                        <label for="name">Nom :</label>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" id="name" name="name" placeholder="celestin" value="<?= !isset($_POST['name']) ? null : htmlspecialchars($_POST['name']); ?>">
+                    </div>
                 </div>
                 <div class="form-row">
-                    <label for="email">Email :</label>
-                    <input type="email" name="email" id="email" placeholder="celestin@caramail.fr" value="<?= !isset($_POST['email']) ? null : htmlspecialchars($_POST['email']); ?>">
+                    <div class="form-row label">
+                        <label for="email">Email :</label>
+                    </div>
+                    <div class="form-row">
+                        <input type="email" name="email" id="email" placeholder="celestin@caramail.fr" value="<?= !isset($_POST['email']) ? null : htmlspecialchars($_POST['email']); ?>">
+                    </div>
                 </div>
                 <div class="form-row">
-                    <label for="subject">Objet :</label>
-                    <select id="subject" name="subject">
-                        <optgroup label="type de demande">
-                        <option value="0" <?= (isset($_POST['subject']))? (($_POST['subject'] == 0)? 'selected' : NULL ) : 'selected'; ?>>Demande de projet web</option>
-                        <option value="1" <?= (isset($_POST['subject']))? (($_POST['subject'] == 1)? 'selected' : NULL ) : NULL; ?>>Prise de contact</option>
-                        <option value="2" <?= (isset($_POST['subject']))? (($_POST['subject'] == 2)? 'selected' : NULL ) : NULL; ?>>Question(s)</option>
-                        <option value="3" <?= (isset($_POST['subject']))? (($_POST['subject'] == 3)? 'selected' : NULL ) : NULL; ?> disabled>Choisis !</option>
-                        </optgroup>
-                    </select>
+                    <div class="form-row label">
+                        <label for="subject">Objet :</label>
+                    </div>
+                    <div class="form-row">
+                        <select id="subject" name="subject">
+                            <optgroup label="type de demande">
+                                <option value="0" <?= (isset($_POST['subject']))? (($_POST['subject'] == 0)? 'selected' : NULL ) : 'selected'; ?>>Demande de projet web</option>
+                                <option value="1" <?= (isset($_POST['subject']))? (($_POST['subject'] == 1)? 'selected' : NULL ) : NULL; ?>>Prise de contact</option>
+                                <option value="2" <?= (isset($_POST['subject']))? (($_POST['subject'] == 2)? 'selected' : NULL ) : NULL; ?>>Question(s)</option>
+                                <!-- <option value="3" <?php // (isset($_POST['subject']))? (($_POST['subject'] == 3)? 'selected' : NULL ) : NULL; ?> disabled>Choisis !</option> !-->
+                            </optgroup>
+                        </select>
+                    </div>
                 </div>
                 <!-- <div class="form-row">
                     je suis un robot :
@@ -257,7 +271,7 @@
                     <label for="textarea">Votre message :</label>
                 </div>
                 <div class="form-row">
-                    <textarea name="textarea" id="textarea" cols="20" rows="20"><?= !isset($_POST['textarea']) ? 'C\'est pour raconter des babioles.' : htmlspecialchars($_POST['textarea']); ?></textarea>
+                    <textarea name="textarea" id="textarea" cols="1" rows="20"><?= !isset($_POST['textarea']) ? 'Entrez votre message ici' : htmlspecialchars($_POST['textarea']); ?></textarea>
                 </div>
                 <div class="form-row">
                     <div class="form-row">
@@ -265,6 +279,8 @@
                         <p id="form-captcha-eco-txt"></p>
                         <input type="number" id="form-captcha-eco" name="form-captcha-eco" value="" placeholder="0">
                     </div>
+                </div>
+                <div class="form-row">
                     <button type="reset" id="reset" value="reset">reset</button>
                     <button type="submit" id="submit" value="submit">envoie</button>
                 </div>

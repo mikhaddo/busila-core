@@ -29,7 +29,7 @@ function openNavbarWithStyle(selectorOpenNavbarWithStyle){
 
     // navbar open
     navUlOpen = true;
-    console.log('openNavbarWithStyle');
+    // console.log('openNavbarWithStyle');
 }
 function navbarOrigin(selectorNavbarOrigin){
     // at the first time, the selector as no style="", if defined : rm value of style="".
@@ -37,7 +37,7 @@ function navbarOrigin(selectorNavbarOrigin){
         document.querySelector(selectorNavbarOrigin).attributes[0].value = '';
     }
     navUlOpen = true;
-    console.log('navbarOrigin');
+    // console.log('navbarOrigin');
 }
 function closeNavbar(selectorCloseNavbar){
     let selectorQuery = document.querySelector(selectorCloseNavbar);
@@ -55,7 +55,7 @@ function closeNavbar(selectorCloseNavbar){
      */
 
     navUlOpen = false;
-    console.log('closeNavbar');
+    // console.log('closeNavbar');
 }
 
 /**

@@ -1,6 +1,8 @@
 // variables
 var regexEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,3}$/;
+// must be select <div> container who has the future <p>... (double <div> for #form-captcha-eco-txt)
 let childrenOfCaptcha = document.querySelector('#form-captcha-eco-txt').parentElement.parentElement;
+// console.log(childrenOfCaptcha);
 
 /**
  * functions color on the fomulaire
@@ -44,9 +46,9 @@ randCapNumber();
 document.querySelector('#submit').addEventListener("click", function(e){
    if(document.querySelector('#form-captcha-eco').value != randCapNumberResult){
       errorCaptchaTxt = document.createElement('p');
-      errorCaptchaTxt.className = 'errorCaptchaTxt'
+      errorCaptchaTxt.className = 'errorCaptchaTxt';
       errorCaptchaTxt.style.color = 'red';
-      errorCaptchaTxt.textContent = 'erreur, chiffre invalide, recharge la page stp, ou demande de l\'aide au webmestre.';
+      errorCaptchaTxt.textContent = 'erreur, chiffre invalide, réessayez.';
       document.querySelector('#form-captcha-eco').parentElement.before(errorCaptchaTxt);
       e.preventDefault();
       randCapNumber();

@@ -47,6 +47,8 @@ function displayImg(element,divSmallImg){
         overlayLarge.parentElement.removeChild(overlayLarge);
     });
 
+    //return 'alo';
+
 };
 
 /**
@@ -62,7 +64,9 @@ document.querySelectorAll(articleImg).forEach(function(element){
             this.style.transform = 'initial';
     });
     element.addEventListener('click', function(){
+        
         // prevent multiplication of overlay(s), we are saved, everything will not collapsing in pink.
+        // we can't test 'typeof(overlayLarge)' because he is inside function, and allways 'undefined'
         if(!document.querySelector('.overlay-pink')){
             displayImg(this, articleImg);
         }else{

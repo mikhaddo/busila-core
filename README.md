@@ -3,8 +3,17 @@ site de Busila Core en PHP et javaScript natif by Thierry
 
 ## améliorations possibles
 - modele-mvc
-- https://pixabay.com
+- more big decorations pictures https://pixabay.com
 - FA icones
+- better effects
+- css ; move hamburger-menu to fixed bottom ?
+- form.js : childrenOfCaptcha paste error when captcha are first-try.
+
+### version 0.7.0 release
+- more optimisation of javaScript
+- more optimisation css
+- more optimisation php-formulaire
+- portfolio second article
 
 ### version 0.6.5
 bug-fixe on the javaScript && bug-fixes html/php/css
