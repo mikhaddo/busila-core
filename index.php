@@ -1,154 +1,27 @@
 <?php
+    // require && uses
+    require 'Models/DAO/FormContactManager.php';
+    use App\Models\DAO\FormContactManager;
+    require 'Models/DAO/SendMailManager.php';
+    use App\Models\DAO\SendMailManager;
+
     /**
-     * form : call to values
-     * verification
-     * send mail
-     * isset($_POST['check-robot']) && # obsolete
+     * everything is in 'Models/DAO' for functions/actions && 'Models/DTO' for getters/setters
      */
-    if(
-        isset($_POST['name']) &&
-        isset($_POST['email']) &&
-        isset($_POST['subject']) &&
-        isset($_POST['hidden-droid']) &&
-        isset($_POST['textarea']) &&
-        isset($_POST['form-captcha-eco'])
-    ){
-        /**
-         * after call for all elements, verification of the content
-         */
-        // verification name
-        if(empty($_POST['name'])){
-            $errors[] = 'Veillez rentrer un nom !';
-        } else if(!preg_match('/^[a-zA-Z\-\s\'áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ]{3,100}$/', $_POST['name'])){
-            $errors[] = 'nom incorrect : trop long ou trop court ; ou alors caractères : minucules, Majuscules, -, , \' ';
+    $formContact = New FormContactManager();
+    if($formContact->isFormContactSent()){
+        if($formContact->isFormContactVerified()){
+            // protected htmlspecialchars in App\Models\DAO\SendMailManager.php
+            $newMail = New SendMailManager(
+                $formContact->getName(),
+                $formContact->getEmail(),
+                $formContact->getSubject(),
+                $formContact->getTextarea()
+            );
+            $newMail->sendMail();
+            $formContact->cleanForm();
         }
-
-        // verification email
-        if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-            $errors[] = 'email est pas bon';
-        }
-
-        // verification subject && assoc $subject_result
-        if(
-            $_POST['subject'] != 0 &&
-            $_POST['subject'] != 1 &&
-            $_POST['subject'] != 2 &&
-            $_POST['subject'] != 3
-        ){
-            $errors[] = 'le sujet n\'est pas bon !';
-        } else {
-            // conversion 0-1-2-3 in hard-text. not so good, we are in procedural mode.
-            switch ($_POST['subject']){
-                case 0:
-                    $subject_result = '00 : Demande de projet web';
-                    break;
-                case 1:
-                    $subject_result = '01 : Prise de contact';
-                    break;
-                case 2:
-                    $subject_result = '02 : Question(s)';
-                    break;
-                case 3:
-                    $subject_result = '03 : Choisis ! :(';
-                    break;
-                default:
-                    $subject_result = NULL;
-            }
-        }
-
-        // verification hidden-droid
-        if(!empty($_POST['hidden-droid'])){
-            $errors[] = 'vous êtes un robot il me semble';
-        }
-
-        // verification check-robot, not use
-        // if($_POST['check-robot'] != 'check-robot-no'){
-        //     $errors[] = 'on coche la case robot comme cela ?';
-        // }
-
-        // verification textarea (false positif ?)
-        // or write function with regex for resend purified textarea to the user
-        if(empty($_POST['textarea'])){
-            $errors[] = 'votre message est vide !';
-        } else if(
-            !preg_match(
-                '/^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ\.\_\-\s\'\?\!\(\)\#\@\:\;\,\/\\\+\*\=\&\£\$\€]{20,5000}$/i',
-                $_POST['textarea'] )
-            ){
-                $errors[] = 'message doit compoter entre 20 et 5000 caractères, en évitant les spéciaux';
-            }
-
-        // verification form-captcha-eco need two generation numbers
-        if(!filter_var($_POST['form-captcha-eco'], FILTER_VALIDATE_INT)){
-            $errors[] = 'votre captcha n\'est pas un numéro !';
-        } /* else if( $_POST['form-captcha-eco'] != (10+$number_captcha_rnd)){
-            $errors[] = 'vous vous êtes trompés dans l\'addition.';
-        } */
-
-        /**
-         * and if nothing goes to errors[] :
-         */
-        if(!isset($errors)){
-            $success = 'Message envoyé par : ' . htmlspecialchars($_POST['name']);
-
-            /**
-             * sending mail...
-             */
-            // what mail server ? postfix ? 1&1 ?
-            // $to = 'mik@localhost'; # localhost
-            // $to = 'celestin@gmail.com'; # be carrefull when you send mails, spamming GMAIL !
-
-            // prod mode
-            $to = "thierry.micots@gmail.com,cyprien.busila@busila-core.com";
-
-            //$subject = $_POST['subject'];
-            $subject = $subject_result;
-
-            // message version TEXT and HTML
-            $message_txt = $_POST['textarea'];
-            $message_html = "<html><head></head><body><strong>". htmlspecialchars($_POST['textarea']) ."</strong></body></html>";
-
-            // line-break and borders
-            $crlf = "\r\n";
-            $boundary = "-----=".md5(rand());
-
-            // firtname, lastname, email from expéditeur (noreply@monsite.fr)
-            // then email for reply
-            $headers = "From: \"". htmlspecialchars($_POST['name']) ."\"<noreply@busila-core.com>".$crlf;
-            $headers.= "Reply-to: \"". htmlspecialchars($_POST['name']) ."\"<". htmlspecialchars($_POST['email']) .">".$crlf;
-
-            // convention
-            $headers.= "MIME-Version: 1.0".$crlf;
-            $headers.= "Content-Type: multipart/alternative;".$crlf." boundary=\"$boundary\"".$crlf;
-
-            // message[] version TXT
-            $message = $crlf."--".$boundary.$crlf;
-            $message.= "Content-Type: text/plain; charset=\"UTF-8\"".$crlf;
-            $message.= "Content-Transfer-Encoding: 8bit".$crlf;
-            $message.= $crlf.$message_txt.$crlf;
-            $message.= $crlf."--".$boundary.$crlf;
-            // message[] version HTML
-            $message.= "Content-Type: text/html; charset=\"UTF-8\"".$crlf;
-            $message.= "Content-Transfer-Encoding: 8bit".$crlf;
-            $message.= $crlf.$message_html.$crlf;
-            $message.= $crlf."--".$boundary."--".$crlf;
-            $message.= $crlf."--".$boundary."--".$crlf;
-
-            // send mail !
-            mail($to,$subject,$message,$headers);
-            $mail_sended = [
-                'to' => $to,
-                'subject' => $subject,
-                'message' => $message_html,
-                'message_txt' => $message_txt,
-                'message_html' => $message_html,
-                'headers' => $headers,
-            ];
-
-        } # endmail
-
-    } # endform
-
+    }
 ?>
 <?php require 'part/header.php' ?>
     <section>
@@ -185,10 +58,10 @@
         <form id="form-contact" action="index.php#form-contact" method="POST">
             <fieldset><legend>Formulaire de contact</legend>
                 <?php
-                    if(isset($errors)):
+                    if(isset($formContact)):
                         // must be destroy
                         //var_dump($_POST);
-                        foreach($errors as $error):
+                        foreach($formContact->getErrors() as $error):
                         ?>
                             <div class="form-row errors">
                                 <?= $error ?>
@@ -198,33 +71,27 @@
                     endif;
                 ?>
                 <?php
-                    if(isset($success)):
+                    if(isset($newMail)):
                         // must be destroy also
-                        //var_dump($_POST);
-                        //var_dump($mail_sended);
+                        // var_dump($newMail);
                         ?>
                             <div class="form-row success">
-                                <?= $success; ?>
+                                Message envoyé par : <?= $newMail->getReplyTo(); ?>
+                            </div>
+                            <!--
+                            <div class="form-row success">
+                                Pour : <?php // $newMail->getTo(); ?>
+                            </div>
+                            -->
+                            <div class="form-row success">
+                                Sujet : <?= $newMail->getSubject(); ?>
                             </div>
                             <div class="form-row success">
-                                Pour : <?= $mail_sended['to']; ?>
-                            </div>
-                            <div class="form-row success">
-                                Sujet : <?= $mail_sended['subject']; ?>
-                            </div>
-                            <div class="form-row success">
-                                Message : <?= $mail_sended['message_txt']; ?>
+                                Message : <?= $newMail->getMessageTxt(); ?>
                             </div>
                         <?php
                     endif;
                 ?>
-                <?php
-                    /**
-                     * debug formulaire
-                     */
-                    //echo isset($subject_result)? ( isset($_POST['subject'])? $subject_result : NULL ) : NULL;
-                    //echo isset($_POST['form-captcha-eco'])? $_POST['form-captcha-eco'] . ' != ' . (10+$number_captcha_rnd) : NULL;
-                 ?>
                 <div class="form-row">
                     <div class="form-row label">
                         <label for="name">Nom :</label>
@@ -282,7 +149,7 @@
                 </div>
                 <div class="form-row">
                     <button type="reset" id="reset" value="reset">reset</button>
-                    <button type="submit" id="submit" value="submit">envoie</button>
+                    <button type="submit" id="submit" value="submit">envoyer</button>
                 </div>
             </fieldset>
         </form>
@@ -290,12 +157,3 @@
 
 <script src="js/form.js"></script>
 <?php require 'part/footer.php' ?>
-<?php
-    /**
-     * ob style PHP parts
-     */
-    //$title = $post['title'];
-    //ob_start();
-    //$content = ob_get_clean();
-    //require('index.php');
-?>

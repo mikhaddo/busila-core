@@ -1,5 +1,6 @@
-// variable
+/*** javaScript natif, visionnette 0.5.0 by Titus ***/
 var articleImg = 'article .article-row-right img';
+var bigImgAllreadyExposed = false;
 
 /**
  * function for displaying img in full-screen
@@ -7,6 +8,8 @@ var articleImg = 'article .article-row-right img';
  * arguments : this->element (this small image), querySelector for div of images
  */
 function displayImg(element,divSmallImg){
+
+    bigImgAllreadyExposed = true;
 
     // reduce currently hooved img (if ':hover' exist, because not in crappy smartphones)
     if(document.querySelector(divSmallImg + ':hover') !== null){
@@ -34,8 +37,10 @@ function displayImg(element,divSmallImg){
     imgBigger.style.top =  '50%';
     imgBigger.style.transform = 'translate(-50%, -50%)';
 
-    // Open overlay image. * slice(20) rm 'img/portfolio/thumb_' slice(20,-4) rm also '.png'
-    // else, if dit not find thumb, draw standard miniature.
+    // Open overlay image. search if thumbnail.
+    // slice(20) rm 'img/portfolio/thumb_' slice(20,-4) rm also '.png' ; slice(18) for /public/img/thumbs
+    // else, if dit not find thumb, draw whatever it is.
+    // default : needs the extension '.jpg', more likely case sensitive.
     if(element.attributes[0].nodeValue.slice(0,20) == 'img/portfolio/thumb_'){
         imgBigger.src = ('img/portfolio/' + element.attributes[0].nodeValue.slice(20));
     } else {
@@ -45,9 +50,8 @@ function displayImg(element,divSmallImg){
     // click on dis thing for rm overlay and everything on it ; and get to the choppa.
     overlayLarge.addEventListener('click', function(){
         overlayLarge.parentElement.removeChild(overlayLarge);
+        return bigImgAllreadyExposed = false;
     });
-
-    //return 'alo';
 
 };
 
@@ -64,14 +68,17 @@ document.querySelectorAll(articleImg).forEach(function(element){
             this.style.transform = 'initial';
     });
     element.addEventListener('click', function(){
-        
         // prevent multiplication of overlay(s), we are saved, everything will not collapsing in pink.
-        // we can't test 'typeof(overlayLarge)' because he is inside function, and allways 'undefined'
-        if(!document.querySelector('.overlay-pink')){
-            displayImg(this, articleImg);
-        }else{
+        if( typeof(bigImgAllreadyExposed) == 'undefined' || bigImgAllreadyExposed ){
             // if the guy spam click so fast on thumbs
+            // or variable is not defined (prevent dependance error but as long not drawing img)
             console.log('don\'t do dat, it is gonna fail.')
-        };
+            // tordu, but neanmoins it's drawing img ! (because procedural mode)
+            if(typeof(bigImgAllreadyExposed) == 'undefined'){
+                displayImg(this, articleImg);
+            }
+        } else {
+            displayImg(this, articleImg);
+        }
     });
 });

@@ -32,8 +32,8 @@
                 </div>
                 <div class="article-row-right">
                     <!-- <h3>PREAMBULE</h3> -->
-                    <img src="img/portfolio/sagencement01.png" alt="sagencement02">
-                    <img src="img/portfolio/sagencement02.png" alt="sagencement02">
+                    <img src="img/portfolio/thumb_sagencement01.png" alt="sagencement02">
+                    <img src="img/portfolio/thumb_sagencement02.png" alt="sagencement02">
                 </div>
             </article>
 

@@ -1,20 +1,18 @@
-// variables
-var regexEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,3}$/;
-// must be select <div> container who has the future <p>... (double <div> for #form-captcha-eco-txt)
-let childrenOfCaptcha = document.querySelector('#form-captcha-eco-txt').parentElement.parentElement;
-// console.log(childrenOfCaptcha);
-
 /**
  * functions color on the fomulaire
  */
 function formEventClick(element){ element.style.border = 'solid blue 4px'; }
 function formEventFocusout(element){
-   if(element.value.length >0){
+   if(element.value.length > 0){
       element.style.border = 'solid green 4px';
    } else {
       element.style.border = 'solid red 4px';
    }
-   if( element.id == 'email' && ( regexEmail.exec(element.value) == null ) ){
+
+   if(
+      element.id == 'email' &&
+      /^[a-zA-Z0-9_-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,3}$/.exec(element.value) == null
+   ){
       element.style.border = 'solid red 4px';
    }
 }
@@ -41,22 +39,75 @@ function randCapNumber(){
 randCapNumber();
 
 /**
- * verification captcha
+ * submit with verification captcha
  */
 document.querySelector('#submit').addEventListener("click", function(e){
+   // remove last message error captcha if is exist
+   if(document.querySelector('.childrenOfErrorCaptchaClass') != null){
+      document.querySelector('.childrenOfErrorCaptchaClass').parentElement.removeChild(document.querySelector('.childrenOfErrorCaptchaClass'));
+   }
+
+   // if captcha not valid, create new element error, draw it, and reload function random captcha.
    if(document.querySelector('#form-captcha-eco').value != randCapNumberResult){
-      errorCaptchaTxt = document.createElement('p');
-      errorCaptchaTxt.className = 'errorCaptchaTxt';
-      errorCaptchaTxt.style.color = 'red';
-      errorCaptchaTxt.textContent = 'erreur, chiffre invalide, réessayez.';
-      document.querySelector('#form-captcha-eco').parentElement.before(errorCaptchaTxt);
+      let childrenOfErrorCaptcha;
+      childrenOfErrorCaptcha = document.createElement('p');
+      childrenOfErrorCaptcha.className = 'childrenOfErrorCaptchaClass';
+      childrenOfErrorCaptcha.style.color = 'red';
+      childrenOfErrorCaptcha.textContent = 'erreur, chiffre invalide, réessayez.';
+      document.querySelector('#form-captcha-eco').parentElement.before(childrenOfErrorCaptcha);
       e.preventDefault();
       randCapNumber();
    }
-   // else { document.getElementById("form-contact").submit; }
 
-   // with var childrenOfCaptcha; two (isset(<p class="errorCaptchaTxt">))? remove the last one !
-   if( childrenOfCaptcha.children[1].className == 'errorCaptchaTxt' ){
-      childrenOfCaptcha.removeChild(childrenOfCaptcha.children[1]);
+});
+
+/**
+ * Reset : create new button or confirmation ; and if it is click, clear all values of all champs.
+ */
+document.querySelector('#reset').addEventListener("click", function(e){
+
+   // variable about the ID of ResetOkButton, need everywhere in here. && prevent reload of page.
+   let resetOkButtonIdString = 'ok';
+   e.preventDefault();
+
+   // if OkButton exist (not null)
+   if(document.getElementById(resetOkButtonIdString) != null){
+
+      // 'toggle' the button ok
+      document.getElementById(resetOkButtonIdString).parentElement.removeChild(document.getElementById(resetOkButtonIdString));
+
+   } else {
+
+      // else : create the ok button.
+      let resetOkButton;
+      resetOkButton = document.createElement('button');
+      resetOkButton.type = 'reset';
+      resetOkButton.id = resetOkButtonIdString;
+      resetOkButton.value = 'reset';
+      resetOkButton.textContent = 'ok';
+      resetOkButton.style.backgroundColor = 'red';
+      resetOkButton.style.margin = '2%';
+      resetOkButton.style.position = 'relative';
+      resetOkButton.style.left = '-12vw';
+      document.querySelector('#reset').after(resetOkButton);
+
+      document.getElementById(resetOkButtonIdString).addEventListener("click", function(e){
+
+         // window.location.replace('home#form-contact'); #not really working on the second time !
+         document.getElementById(resetOkButtonIdString).parentElement.removeChild(document.getElementById(resetOkButtonIdString));
+         if(document.querySelector('.childrenOfErrorCaptchaClass') != null){
+            document.querySelector('.childrenOfErrorCaptchaClass').parentElement.removeChild(document.querySelector('.childrenOfErrorCaptchaClass'));
+         }
+
+         // clear all values
+         document.querySelector('#name').value = null;
+         document.querySelector('#email').value = null;
+         document.querySelector('#subject').firstElementChild.children[0].selected = true;
+         document.querySelector('#textarea').value = null;
+         document.querySelector('#form-captcha-eco').value = null;
+
+      });
+
    }
+
 });

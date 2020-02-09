@@ -1,13 +1,19 @@
 # busila-core
-site de Busila Core en PHP et javaScript natif by Thierry
+site de Busila Core en PHP, CSS et javaScript natif by Thierry
+php 7.4.2 requis || laragon|wamp
 
 ## améliorations possibles
 - modele-mvc
 - more big decorations pictures https://pixabay.com
 - FA icones
 - better effects
-- css ; move hamburger-menu to fixed bottom ?
-- form.js : childrenOfCaptcha paste error when captcha are first-try.
+- css : can move hamburger-menu to fixed bottom
+
+### [version 1.0.0](../../releases/tag/v1.0.0) :: terminated
+> fixed evolution
+- php-form is now in Object-Oriented (OOP) on the model DAO/DTO !
+- visionnette.js little update
+- form.js > bug of childrenOfCaptcha when firstry the form is resolved.
 
 ### version 0.7.0 release
 - more optimisation of javaScript
@@ -38,3 +44,6 @@ bug-fixe on the javaScript && bug-fixes html/php/css
 - formulaire PHP fonctionnel
 - quelques détails à améliorer
     - javaScript formulaire
+
+#### rnd()
+![powered-by](https://web.archive.org/web/20061209091918im_/http://www.elroubio.net/nouveaute/phpinup_gpl_7.jpg)
